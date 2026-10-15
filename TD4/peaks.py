@@ -3,13 +3,11 @@
 ### Question 1 ###
 def peak_naive(L):
     n=len(L)
-    if n==1: return 0
-    if n==2 :
-        return 0 if L[0]>=L[1] else 1
-    for i in range(1, n-1):
-        if L[i]>=L[i-1] and L[i]>=L[i+1]:
+    for i in range (n-1):
+        if L[i]>=L[i+1]:
             return i
     return n-1
+
 
 ### Question 2 ###   
 def peak(L):
@@ -33,13 +31,23 @@ def peak_aux(L,p,q):
     
 ### Question 3 ###
 def is_peak(M,i,j):
-    # TO IMPLEMENT
-    pass
+    I=len(M)
+    J=len(M[i])
+    test=[(i-1, j), (i+1, j), (i, j-1), (i, j+1)]
+    for (r, c) in test:
+        if r>=0 and r<I and c>=0 and c<J:
+            if not(M[i][j]>=M[r][c]):
+                return False
+    return True 
     
 ### Question 4 ###
 def peak2d_naive(M):
-    # TO IMPLEMENT
-    pass
+    I= len(M)
+    J= len(M[0])
+    for i in range(I):
+        for j in range(J):
+            if is_peak(M, i, j):
+                return (i, j)
 
 ### Question 5 ###
 def pivot(M,p,q,r,s):    
