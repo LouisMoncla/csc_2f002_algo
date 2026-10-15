@@ -51,9 +51,33 @@ def peak2d_naive(M):
 
 ### Question 5 ###
 def pivot(M,p,q,r,s):    
-    # TO IMPLEMENT
-    pass
-    
+    index_pairs=set()
+    values=dict()
+    ## first index pairs
+    if q-p==1: 
+        Apq={p}
+    else:
+        l=(p+q)//2
+        Apq={p, l-1, l, q-1}
+    for elem in Apq:
+        for j in range (r, s):
+            index_pairs.add((elem, j))
+    #second index pairs
+    if s-r==1:
+        Ars={r}
+    else:
+        l=(r+s)//2
+        Ars={r, l-1, l, s-1}
+    for elem in Ars:
+        for i in range(p, q):
+            index_pairs.add((i, elem))
+
+    # pair with highest value
+    for (i, j) in index_pairs:
+        values[M[i][j]]= (i, j)
+    key= max(values)
+    return values[key]
+
 ### Question 6 ###
 def peak2d(M):    
     # TO IMPLEMENT
