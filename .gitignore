@@ -1,5 +1,6 @@
 # Exclude the folder Past_ressources
 Past_Ressources/
+Complexity_exercises/
 
 # Exclude all the pycache
 __pycache__/
