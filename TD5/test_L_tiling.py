@@ -94,4 +94,4 @@ def display_tiling_with_random_hole(n):
 test1()
 test2()
 test3()
-# display_tiling_with_random_hole(4)
+display_tiling_with_random_hole(4)
