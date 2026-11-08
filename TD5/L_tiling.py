@@ -40,7 +40,7 @@ def upper_left_hole(n, i, j, a, b): # returns the coordinates of the hole of the
     return i+2**(n-1)-1, j+2**(n-1)
 
 def upper_right_hole(n, i, j, a, b): # returns the coordinates of the hole of the upper right quadrant
-    if a>=i+2**(n-1) and b>=j+2**(n-1)-1:
+    if a>=i+2**(n-1) and b>=j+2**(n-1):
         return (a, b)
     return i+2**(n-1), j+2**(n-1)
 

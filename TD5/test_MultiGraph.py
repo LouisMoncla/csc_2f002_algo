@@ -206,5 +206,5 @@ test_random_element()
 test_random_edge()
 test_random_cut()
 
-# test_mincut_karger()
-# test_mincut_brute()
+test_mincut_karger()
+test_mincut_brute()
