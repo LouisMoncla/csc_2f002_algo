@@ -13,7 +13,7 @@ def string_compare(P,S):
 def string_match(T, P):
     match=[]
     m=len(P)
-    for i in range (len(T)):
+    for i in range (len(T)-m+1):
         if T[i:i+m] == P :
             match.append(i)
     return match
@@ -52,18 +52,14 @@ def karp_rabin_sum(T,P):
 
 
 ### karp_rabin_mod
-
 def hash_string_mod(S, q):
-    m=len(S)
-    d=256
-    sum=ord(S[0])
-    for i in range(m-1):
-        sum=sum*d+ord(S[i+1])
-       
-    return sum%q
+    h = 0
+    for char in S:
+        h = (h * base + ord(char)) % q
+    return h
 
 def hash_string_mod_update(h, Ti, Tim, q, dm):
-    return (256*(h-dm*ord(Ti))+ord(Tim))%q
+    return (base*(h-dm*ord(Ti))+ord(Tim))%q
 
 def karp_rabin_mod(T,P, q):
     spurious = 0 #wrong matches
@@ -72,7 +68,7 @@ def karp_rabin_mod(T,P, q):
     n=len(T) #longueur du string 
     h= hash_string_mod(P, q) #le hash de P longueur m 
     T_i= hash_string_mod(T[:m], q) # le hash de T d'index 0 a m-1
-    dm=(256**(m-1))%q
+    dm = pow(base, m-1, q)
     for i in range(n-m+1):
         if h==T_i: 
             if string_compare(P,T[i:i+m]):
