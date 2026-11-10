@@ -5,7 +5,7 @@ import numpy as np
 import random
 import string
 import time
-import signal
+import concurrent.futures
 import matplotlib.pyplot as plt
 
 grading_mode=False
@@ -48,12 +48,27 @@ def test_print(algo, O, T, P, Q = None):
     else:
         print(f"[NOK]\tReturned {res[1]}")
 
-def handler(signum, frame):
-    raise Exception("timeout")
-
-signal.signal(signal.SIGALRM, handler)
-
 timeout = 3 # seconds
+
+def test_hash_sum(algo, O, S, Q = None):
+    print(f"Testing S={S if len(S) < 20 else '<very long>'}: hash sum {O}", end="")
+    if Q is not None:
+        print (f" (prime {Q})", end="")
+    print("...\t", end="")
+
+    try:
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            future = executor.submit(algo, S) if Q is None else executor.submit(algo, S, Q)
+            res = future.result(timeout=timeout)
+
+        if res == O:
+            print("[OK]")
+        else:
+            assert not grading_mode
+            print(f"[NOK]\t Returned {res}")
+
+    except concurrent.futures.TimeoutError:
+        print("Timeout")
     
 def test_hash_sum(algo, O, S, Q = None):
     print(f"Testing S={S if len(S) < 20 else '<very long>'}: hash sum {O}", end="")
@@ -61,9 +76,7 @@ def test_hash_sum(algo, O, S, Q = None):
         print (f" (prime {Q})", end="")
     print("...\t", end="")
     try:
-        signal.alarm(timeout)
         res = algo(S) if Q is None else algo(S, Q)
-        signal.alarm(0)
         if res == O:
             print("[OK]")
         else:
