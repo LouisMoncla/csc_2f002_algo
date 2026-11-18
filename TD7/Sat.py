@@ -36,6 +36,8 @@ class Sat:
   def initialize(self):
     # TO COMPLETE
     for i in range(1, self.nr_var+1): 
+      if i in self.fixed.keys():
+         continue
       self.values[i]= random.choice([True, False])
     
     
@@ -72,7 +74,14 @@ class Sat:
   
   def fix_values_from_1clauses(self):
     # TO COMPLETE
-    pass
+    bol=False
+    for clause in self.clauses:
+      if len(clause)==1 : 
+        self.fixed[abs(clause[0])]= clause[0] > 0
+        self.values[abs(clause[0])]=self.fixed[abs(clause[0])]
+        bol=True
+    return bol
+
 
   # Helper functions for Question 7
   
@@ -97,8 +106,13 @@ class Sat:
   # Question 7
   
   def simplify_formula_by_propagation(self):
-     # TO COMPLETE
-     pass  
+    # TO COMPLETE
+    while True:
+       condition=self.fix_values_from_1clauses()
+       if condition== False: 
+          return
+       self.clauses= self.simplify_clauses()
+    
 
   ##################################################
   # DISPLAY METHODS
