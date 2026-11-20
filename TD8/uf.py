@@ -5,9 +5,9 @@ class UF_base:
         basic Union-Find implementation, implementing Quick-find
     '''
     def __init__(self, N):
-        self.N = N
-        self.A = [i for i in range(N)]
-        self.count = N
+        self.N = N  # number of elements
+        self.A = [i for i in range(N)]  #Array representing the forest
+        self.count = N   # number of equivalence classes, i.e. the number of trees in the forest
     
     def get_N(self):
         return self.N
@@ -42,13 +42,35 @@ class Rank_UF(UF_base):
         self.rank = [1 for _ in range(N)]
         
     def find(self, p):
-        '''
-            TO IMPLEMENT
-        '''
-        pass        
+        # TO IMPLEMENT
+        #path compression
+        to_compress = [p]
+        fiston = p
+        root = None
+        while root is None:
+            #fenetre glissante
+            parent = self.A[fiston]
+            if parent == fiston:
+                root= parent
+                for elem in to_compress:
+                    self.A[elem]=root
+                return self.A[p]
+            else: 
+                to_compress.append(parent)
+                fiston = parent
+        return self.A[p]
+
         
     def union(self, p, q):
-        '''
-            TO IMPLEMENT
-        '''
-        pass
+        #TO IMPLEMENT
+        p = self.find(p)
+        q = self.find(q)
+
+        if self.rank[p]>self.rank[q]:
+            self.A[q]= p
+        elif self.rank[p]==self.rank[q]:
+            self.A[q]=p
+            self.rank[p]+=1
+        else: 
+            self.A[p]= q
+        self.count-=1
