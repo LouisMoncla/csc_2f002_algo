@@ -17,6 +17,6 @@ def Erdos_Renyi(N):
 
         if not G.is_connected(p, q):
             G.union(p, q)
-            edges+=1
+        edges+=1
     return edges
     

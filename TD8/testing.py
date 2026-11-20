@@ -332,7 +332,7 @@ print("Question 1")
 test_find(100)
 
 print("\nQuestion 2")
-# for _ in range(5): test_random_union()
+#for _ in range(5): test_random_union()
 test_random_union()
 test_rank_uf()
 
@@ -346,7 +346,15 @@ test_get_neighbors()
 
 print("\nQuestion 5")
 test_make_vacant()
-#N = 500; print("N =",N,", ratio to percolate =", perco.ratio_to_percolate(N))
+N = 1000; print("N =",N,", ratio to percolate =", perco.ratio_to_percolate(N))
+N = 500; print("N =",N,", ratio to percolate =", perco.ratio_to_percolate(N))
+N = 100; print("N =",N,", ratio to percolate =", perco.ratio_to_percolate(N))
+N = 50; print("N =",N,", ratio to percolate =", perco.ratio_to_percolate(N))
+N = 20; print("N =",N,", ratio to percolate =", perco.ratio_to_percolate(N))
+N = 10; print("N =",N,", ratio to percolate =", perco.ratio_to_percolate(N))
+N = 5; print("N =",N,", ratio to percolate =", perco.ratio_to_percolate(N))
+
+
 
 ''' Hex game '''
 print("\nQuestion 7")

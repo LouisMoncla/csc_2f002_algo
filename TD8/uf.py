@@ -66,6 +66,10 @@ class Rank_UF(UF_base):
         p = self.find(p)
         q = self.find(q)
 
+        #if already in the same tree
+        if p == q:
+            return
+
         if self.rank[p]>self.rank[q]:
             self.A[q]= p
         elif self.rank[p]==self.rank[q]:
