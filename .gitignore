@@ -1,11 +1,13 @@
 # Exclude the folder Past_ressources
-Past_Ressources/
-Complexity_exercises/
+
 
 # Exclude all the pycache
 __pycache__/
 *.py[cod]
 .pytest_cache/
 
-#TD2
-graph1.png
+#parameters
+.vscode/
+
+#TD BX26
+correction_TD_BX26/
