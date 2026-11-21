@@ -57,27 +57,65 @@ class Hex:
 
 
     def neighbours(self, i, j):
-        '''
-            TO IMPLEMENT
-        '''
+        #TO IMPLEMENT
+        #liste des voisins a tester
+        voisins=[(i, j+1), (i, j-1), (i+1, j), (i-1, j), (i-1, j+1), (i+1, j-1)]
+        # le joueur actuel 1 ou 2
+        player= self.player
+        #liste des hexagones qui belong au joueur actuel
+        belong= []
+        for i, j in voisins:
+            if 0<=j<self.size and 0<=i<self.size:
+                if self.board[i][j] == player:
+                    belong.append([i, j])
 
-        pass
+        return belong
 
+
+        
+    
     def is_game_over(self):
-        '''
-            TO IMPLEMENT
-        '''
-        pass
+        #TO IMPLEMENT
+        player=self.player
+        return self.uf.is_connected(self.top[player], self.bot[player])
+    
+    
+
 
     def random_turn(self):
-        '''
-            TO IMPLEMENT
-        '''
-        pass
+        #TO IMPLEMENT
+        player = self.player 
+        choice = 1
+        while choice!=0:
+            i , j = random.randint(1, self.size-2), random.randint(1, self.size-2)
+            choice = self.board[i][j]
+        self.board[i][j]=player
+        for p, q in self.neighbours(i, j):
+            self.uf.union(self.hex_to_int(i,j), self.hex_to_int(p, q))
+
+        # Connect to the appropriate borders
+        if player == 1:
+            if i == 1:
+                self.uf.union(self.hex_to_int(i, j), self.top[1])
+            if i == self.size-2:
+                self.uf.union(self.hex_to_int(i, j), self.bot[1])
+
+        else:
+            if j == 1:
+                self.uf.union(self.hex_to_int(i, j), self.bot[2])
+            if j == self.size-2:
+                self.uf.union(self.hex_to_int(i, j), self.top[2])
+
+        self.player = 3 - player
+        
+
 
     def random_play(self):
-        '''
-            TO IMPLEMENT
-        '''
+        #TO IMPLEMENT
+        count=0
+        while not self.is_game_over():
+            self.random_turn()
+            count+=1
 
-        pass
+        self.print_board()
+        return count/(self.size-2)**2
