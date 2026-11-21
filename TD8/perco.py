@@ -66,6 +66,8 @@ def ratio_to_percolate(N):
             vacant_count+=1
     return vacant_count/(N**2)
 
+# p_star= 0.59
+
     
 
 
